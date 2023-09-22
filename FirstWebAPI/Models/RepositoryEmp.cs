@@ -18,5 +18,12 @@
             Employee employee = _context.Employees.Find(id);
             return employee;
         }
+        public Employee UpdateEmployee(Employee updatedEmployeeData)
+        {
+            _context.Employees.Update(updatedEmployeeData);
+            // Save changes to the database
+            _context.SaveChanges();
+            return updatedEmployeeData;
+        }
     }
 }

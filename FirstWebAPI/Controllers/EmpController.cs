@@ -13,8 +13,29 @@ namespace FirstWebAPI.Controllers
         {
             _repositoryEmployee = repository;
         }
-        [HttpGet]
+        [HttpGet("/GetAllEmployees")]
         // GET: EmployeeController
+        public IEnumerable<EmpViewModel> GetallEmp()
+        {
+            List<Employee> employees = _repositoryEmployee.GetAllEmp();
+            var empList = (
+                from emp in employees
+                select new EmpViewModel()
+                {
+                    EmpId = emp.EmployeeId,
+                    FirstName = emp.FirstName,
+                    LastName = emp.LastName,
+                    BirthDate = emp.BirthDate,
+                    HireDate = emp.HireDate,
+                    Title = emp.Title,
+                    City = emp.City,
+                    ReportsTo = emp.ReportsTo
+                }
+                ).ToList();
+            return empList;
+        }
+
+        [HttpGet("/GetEmp")]
         public List<Employee> GetEmployees()
         {
             List<Employee> employees = _repositoryEmployee.GetAllEmp();
@@ -25,6 +46,16 @@ namespace FirstWebAPI.Controllers
         {
             Employee employees = _repositoryEmployee.GetEmployeeId(id);
             return employees;
+        }
+        [HttpPut]
+        public Employee Put(int id, [FromBody] Employee updatedEmployeeData)
+        {
+            updatedEmployeeData.EmployeeId = id;
+            Employee savedEmployee = _repositoryEmployee.UpdateEmployee(updatedEmployeeData);
+            return savedEmployee;
+
+
+
         }
     }
 }

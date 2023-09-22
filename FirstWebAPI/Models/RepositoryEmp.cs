@@ -25,5 +25,19 @@
             _context.SaveChanges();
             return updatedEmployeeData;
         }
+        public Employee DeleteEmployee(Employee DeletedEmployeeData)
+        {
+            _context.Employees.Remove(DeletedEmployeeData);
+            // Save changes to the database
+            _context.SaveChanges();
+            return DeletedEmployeeData;
+        }
+        public Employee AddEmployee(Employee newemployeeData)
+        {
+            _context.Employees.Add(newemployeeData);
+            _context.SaveChanges();
+            return newemployeeData;
+
+        }
     }
 }

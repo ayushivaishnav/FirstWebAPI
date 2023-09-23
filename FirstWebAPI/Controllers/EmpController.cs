@@ -55,7 +55,7 @@ namespace FirstWebAPI.Controllers
             return savedEmployee;
 
         }
-        [HttpDelete]
+        [HttpDelete("/DeleteEmp")]
         public Employee Delete(int id, [FromBody] Employee DeletedEmployeeData)
         {
             DeletedEmployeeData.EmployeeId = id;
